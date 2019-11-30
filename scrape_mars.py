@@ -75,21 +75,9 @@ def scrape():
         hem_title = hemisphere.get('alt')
         hem_url = hemisphere.get('src')
         hemisphere_image_urls.append({'title':hem_title,'img_url':hem_url})
-        #print(hem_title , hem_url )
+        
     mars_data['hem_img']= hemisphere_image_urls     
     
-
-# This is the part that is defining the dictionary
-
-    #mars_data = {
-    #    "News_Title": title,
-     #   "News_Description": desc,
-       # "Featured_image": feature_img,
-       # "Weather": mars_weather,
-       # "Facts_Table": mars_fact_table,
-    #    "hemispheres": hemisphere_image_urls,
-       # "last_modified": dt.datetime.now()
-    #}
 
     # Stop webdriver and return results
     browser.quit()
