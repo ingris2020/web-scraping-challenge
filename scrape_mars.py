@@ -61,7 +61,7 @@ def scrape():
 
 
     #Hemisphere image & link
-    #Going to the main page for the Mars Hemisphere's
+    #Go into the main page for the Mars Hemisphere's
     hem_url = 'https://www.planetary.org/blogs/guest-blogs/bill-dunford/20140203-the-faces-of-mars.html'
     browser.visit(hem_url)
     html = browser.html
