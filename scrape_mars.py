@@ -62,35 +62,21 @@ def scrape():
 
     #Hemisphere image & link
     #Going to the main page for the Mars Hemisphere's
-    hemisphere_image_urls = []
-    hem_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
+    hem_url = 'https://www.planetary.org/blogs/guest-blogs/bill-dunford/20140203-the-faces-of-mars.html'
     browser.visit(hem_url)
     html = browser.html
     soup = bs(html, 'html.parser')
     
-    hemispheres = soup.find_all('div', class_="item")
-    
+    hemispheres = soup.find_all('img', class_='img840')
+
+    hemisphere_image_urls =[]
+
     for hemisphere in hemispheres:
-    
-        hemisphere_dict = {}
-        link = hemisphere.find('a')
-        href = link['href']
-
-        browser.visit('https://astrogeology.usgs.gov/' + href)
-        html2 = browser.html
-        soup2 = bs(html2, 'html.parser')
-        
-        hem_image = soup2.find('div', class_="downloads").find('li').find('a')
-        hem_title = soup2.find('h2', class_="title").text
-    
-        #Adding hemispheres data to a dictionary.
-        hemisphere_dict['img_url'] = hem_image.get('href')
-        hemisphere_dict['title'] = hem_title.text
-        hemisphere_image_urls.append(hemisphere_dict)
-        
-        mars_data['hemisphere'] = hemisphere_image_urls
-        browser.back()     
-
+        hem_title = hemisphere.get('alt')
+        hem_url = hemisphere.get('src')
+        hemisphere_image_urls.append({'title':hem_title,'img_url':hem_url})
+        #print(hem_title , hem_url )
+    mars_data['hem_img']= hemisphere_image_urls     
     
 
 # This is the part that is defining the dictionary
@@ -105,6 +91,6 @@ def scrape():
        # "last_modified": dt.datetime.now()
     #}
 
-    # Stop webdriver and return resutles
+    # Stop webdriver and return results
     browser.quit()
     return mars_data
